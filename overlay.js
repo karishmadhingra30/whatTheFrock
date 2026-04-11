@@ -380,6 +380,20 @@
     statusEl.textContent = `😬 ${message || 'Analysis failed — try refreshing'}`;
   };
 
+  // Aliases used by content.js
+  window.whatTheFrockRenderError = window.whatTheFrockError;
+
+  window.whatTheFrockRenderLoading = function () {
+    overlay.className = 'wtf-loading';
+    document.getElementById('wtf-spinner').style.display = '';
+    document.getElementById('wtf-status-text').style.display = '';
+    document.getElementById('wtf-status-text').textContent = 'Scanning fabric composition...';
+    document.getElementById('wtf-score-pill').style.display = 'none';
+    document.getElementById('wtf-risk-text-sm').style.display = 'none';
+    document.getElementById('wtf-composition-sm').style.display = 'none';
+    document.getElementById('wtf-toggle-btn').style.display = 'none';
+  };
+
   // ── Helpers ───────────────────────────────────────────────────────────────
 
   function _esc(str) {

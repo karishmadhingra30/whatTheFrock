@@ -104,7 +104,3 @@ async function analyzeFabric(fabricText, garmentType = "top") {
   }
 }
 
-// Hour 1 self-test — remove before shipping
-analyzeFabric("Polyester 100%", "leggings").then(result => {
-  console.log("[whatTheFrock] Hour 1 test result:", JSON.stringify(result, null, 2));
-});
