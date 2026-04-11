@@ -1,1 +1,1 @@
-const ANTHROPIC_KEY = "YOUR_KEY_HERE";
+const ANTHROPIC_KEY = "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";
