@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>whatTheFrock — overlay test harness</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f0f0f5;
+      color: #333;
+      margin: 0;
+      padding: 40px 32px 160px; /* bottom padding so overlay doesn't cover controls */
+    }
+    h1 { font-size: 22px; margin-bottom: 6px; }
+    p  { font-size: 14px; color: #666; margin-bottom: 28px; }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #fff;
+    }
+    .btn-loading  { background: #444; }
+    .btn-high     { background: #FF2D87; }
+    .btn-medium   { background: #FF9F0A; }
+    .btn-low      { background: #00A878; }
+    .btn-error    { background: #888; }
+    .note {
+      font-size: 12px;
+      color: #999;
+      margin-top: 24px;
+      line-height: 1.7;
+    }
+    code {
+      background: #e8e8ee;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: monospace;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <h1>💃 whatTheFrock — overlay test harness</h1>
+  <p>Simulates the floating overlay as it would appear on an H&amp;M product page. Click a state below to test it.</p>
+
+  <div class="controls">
+    <button class="btn-loading" onclick="setLoading()">⏳ Loading state</button>
+    <button class="btn-high"    onclick="renderHigh()">☠️ High risk</button>
+    <button class="btn-medium"  onclick="renderMedium()">⚠️ Medium risk</button>
+    <button class="btn-low"     onclick="renderLow()">🌿 Low risk</button>
+    <button class="btn-error"   onclick="renderError()">😬 Error state</button>
+  </div>
+
+  <div class="note">
+    You can also call these directly in the browser console:<br/>
+    <code>window.whatTheFrockRender({ score: 8, risk_level: "high", ... })</code><br/>
+    <code>window.whatTheFrockError("Analysis timed out")</code>
+  </div>
+
+  <!-- Load the real overlay script -->
+  <script src="overlay.js"></script>
+
+  <script>
+    // ── Mock data sets ────────────────────────────────────────────────────
+
+    const MOCK_HIGH = {
+      score: 8.5,
+      risk_level: "high",
+      composition: "92% Polyester, 8% Elastane",
+      syntheticScore: 5,
+      proximityScore: 3,
+      chemicalScore: 2,
+      risk_summary: "This garment is made almost entirely from synthetic fibres worn directly against the skin. Polyester and elastane are associated with phthalate migration and microplastic shedding, both linked to endocrine disruption with prolonged skin contact.",
+      risk_source_url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7068695/",
+      risk_source_label: "NIH Study on Synthetic Textiles and Endocrine Disruption",
+      safer_alternatives: ["Organic Cotton", "Linen", "Hemp", "Tencel"]
+    };
+
+    const MOCK_MEDIUM = {
+      score: 5.0,
+      risk_level: "medium",
+      composition: "55% Cotton, 40% Polyester, 5% Elastane",
+      syntheticScore: 2,
+      proximityScore: 2,
+      chemicalScore: 1,
+      risk_summary: "A mixed-fibre garment with moderate synthetic content. The polyester fraction can shed microfibres during wear and washing, and the small elastane component introduces some chemical risk, though the majority cotton content softens overall exposure.",
+      risk_source_url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7068695/",
+      risk_source_label: "NIH Study on Synthetic Textiles and Endocrine Disruption",
+      safer_alternatives: ["100% Organic Cotton", "Linen blend", "Tencel"]
+    };
+
+    const MOCK_LOW = {
+      score: 1.5,
+      risk_level: "low",
+      composition: "100% Organic Cotton",
+      syntheticScore: 0,
+      proximityScore: 1,
+      chemicalScore: 0,
+      risk_summary: "Organic cotton is one of the safest fabric choices available. It is free from synthetic fibres and grown without pesticide residues, making it a low-risk option even for garments worn close to the skin.",
+      risk_source_url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7068695/",
+      risk_source_label: "NIH Study on Synthetic Textiles and Endocrine Disruption",
+      safer_alternatives: ["Linen", "Hemp", "Tencel"]
+    };
+
+    // ── Helpers ───────────────────────────────────────────────────────────
+
+    function resetOverlay() {
+      // Tear down the existing overlay and re-inject so we can demo loading state
+      const old = document.getElementById('wtf-overlay');
+      const oldStyle = document.getElementById('wtf-styles');
+      if (old) old.remove();
+      if (oldStyle) oldStyle.remove();
+      // Re-run overlay.js by creating a fresh script tag
+      const s = document.createElement('script');
+      s.src = 'overlay.js?' + Date.now(); // cache-bust
+      document.body.appendChild(s);
+    }
+
+    function setLoading() { resetOverlay(); }
+
+    function renderHigh() {
+      resetOverlay();
+      // Wait for overlay.js to initialise, then push data
+      setTimeout(() => window.whatTheFrockRender(MOCK_HIGH), 600);
+    }
+
+    function renderMedium() {
+      resetOverlay();
+      setTimeout(() => window.whatTheFrockRender(MOCK_MEDIUM), 600);
+    }
+
+    function renderLow() {
+      resetOverlay();
+      setTimeout(() => window.whatTheFrockRender(MOCK_LOW), 600);
+    }
+
+    function renderError() {
+      resetOverlay();
+      setTimeout(() => window.whatTheFrockError("Claude API timed out after 15s"), 600);
+    }
+  </script>
+</body>
+</html>
