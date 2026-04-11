@@ -71,7 +71,8 @@ async function analyzeFabric(fabricText, garmentType = "top") {
       headers: {
         "Content-Type": "application/json",
         "x-api-key": ANTHROPIC_KEY,
-        "anthropic-version": "2023-06-01"
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true"
       },
       body: JSON.stringify({
         model: "claude-haiku-4-5-20251001",
@@ -87,7 +88,11 @@ async function analyzeFabric(fabricText, garmentType = "top") {
       console.error("[whatTheFrock] API error response:", apiError);
       return { type: "FABRIC_ERROR", message: `API error: ${apiError}` };
     }
-    const result = JSON.parse(data.content[0].text);
+    let text = data.content[0].text.trim();
+    if (text.startsWith("```")) {
+      text = text.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "");
+    }
+    const result = JSON.parse(text);
     return { type: "FABRIC_RESULT", data: result };
   } catch (err) {
     if (err.name === "AbortError") {
