@@ -9,6 +9,7 @@
   ],
   "host_permissions": [
     "*://www.hm.com/*",
+    "*://www2.hm.com/*",
     "https://api.anthropic.com/*"
   ],
   "background": {
@@ -16,7 +17,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://www.hm.com/*/productpage*"],
+      "matches": ["*://www.hm.com/*/productpage*", "*://www2.hm.com/*/productpage*"],
       "js": ["overlay.js", "content.js"],
       "css": ["overlay.css"]
     }
