@@ -380,6 +380,9 @@
     statusEl.textContent = `😬 ${message || 'Analysis failed — try refreshing'}`;
   };
 
+  // Alias used by content.js (whatTheFrockRenderError → whatTheFrockError)
+  window.whatTheFrockRenderError = window.whatTheFrockError;
+
   // ── Helpers ───────────────────────────────────────────────────────────────
 
   function _esc(str) {
