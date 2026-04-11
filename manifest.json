@@ -16,7 +16,7 @@
   "content_scripts": [
     {
       "matches": ["*://www.hm.com/*/productpage*"],
-      "js": ["content.js"],
+      "js": ["overlay.js", "content.js"],
       "css": ["overlay.css"]
     }
   ],

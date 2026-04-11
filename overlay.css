@@ -1,1 +1,17 @@
-/* Person 3 owns this file */
+/*
+ * overlay.css — Person 3 owns this file
+ * Styles for the whatTheFrock floating risk overlay.
+ * All dynamic/state-based styles are injected by overlay.js.
+ * This file is a stable hook for any site-specific overrides.
+ */
+
+/*
+ * Safety net: ensure H&M's own body doesn't clip our fixed overlay.
+ * (overlay.js sets z-index: 999999 inline, but this guards against
+ *  any parent with overflow:hidden or transform that creates a new
+ *  stacking context above us.)
+ */
+body {
+  /* Do NOT set overflow: hidden here — that would break H&M's scroll */
+}
+
