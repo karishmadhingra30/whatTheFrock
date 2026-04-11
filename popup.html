@@ -1,7 +1,77 @@
 <!DOCTYPE html>
-<html>
-  <head><meta charset="utf-8"><title>whatTheFrock</title></head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>whatTheFrock</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        width: 260px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: linear-gradient(160deg, #1C1C2E 0%, #2D2D50 100%);
+        color: #fff;
+        padding: 22px 20px 20px;
+      }
+      .logo {
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: -0.5px;
+        margin-bottom: 6px;
+      }
+      .tagline {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.55);
+        margin-bottom: 18px;
+      }
+      .divider {
+        height: 1px;
+        background: rgba(255,255,255,0.1);
+        margin-bottom: 16px;
+      }
+      .instruction {
+        font-size: 13px;
+        line-height: 1.6;
+        color: rgba(255,255,255,0.75);
+      }
+      .instruction strong { color: #fff; }
+      .legend {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        color: rgba(255,255,255,0.7);
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .dot-low    { background: #00C896; }
+      .dot-medium { background: #FF9F0A; }
+      .dot-high   { background: #FF2D87; }
+    </style>
+  </head>
   <body>
-    <p>Open an H&amp;M product page to scan fabric.</p>
+    <div class="logo">💃 whatTheFrock</div>
+    <div class="tagline">Fabric health risk scanner</div>
+    <div class="divider"></div>
+    <div class="instruction">
+      Navigate to an <strong>H&amp;M product page</strong> to automatically scan
+      the fabric composition and see your health exposure risk score.
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="dot dot-low"></div>🌿 Low risk — natural / low-synthetic</div>
+      <div class="legend-item"><div class="dot dot-medium"></div>⚠️ Medium risk — mixed composition</div>
+      <div class="legend-item"><div class="dot dot-high"></div>☠️ High risk — heavy synthetic</div>
+    </div>
   </body>
 </html>
