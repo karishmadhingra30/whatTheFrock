@@ -88,7 +88,11 @@ async function analyzeFabric(fabricText, garmentType = "top") {
       console.error("[whatTheFrock] API error response:", apiError);
       return { type: "FABRIC_ERROR", message: `API error: ${apiError}` };
     }
-    const result = JSON.parse(data.content[0].text);
+    let text = data.content[0].text.trim();
+    if (text.startsWith("```")) {
+      text = text.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "");
+    }
+    const result = JSON.parse(text);
     return { type: "FABRIC_RESULT", data: result };
   } catch (err) {
     if (err.name === "AbortError") {
