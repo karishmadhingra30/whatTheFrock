@@ -1,1 +1,0 @@
-const ANTHROPIC_KEY = "YOUR_NEW_KEY_HERE";
