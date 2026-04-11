@@ -1,4 +1,4 @@
-const ANTHROPIC_KEY = "YOUR_KEY_HERE";
+importScripts("config.js"); // ANTHROPIC_KEY loaded from gitignored config.js
 
 const SYSTEM_PROMPT = `You are an expert in textile toxicology, hormonal disruption and health.
 A user has selected an outfit. For each garment provided, you will receive:
