@@ -202,10 +202,11 @@
 
     if (href.includes("hm.com") && href.includes("productpage")) {
       console.log("[whatTheFrock] SPA navigation detected:", href);
-      // Remove stale overlay and re-run on the new product
+      // Remove stale overlay immediately
       const old = document.getElementById("fabricguard-overlay");
       if (old) old.remove();
-      runExtraction();
+      // Wait for React to finish rendering the new product before scraping
+      setTimeout(runExtraction, 1500);
     }
   }, 1000);
 
