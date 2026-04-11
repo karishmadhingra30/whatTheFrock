@@ -113,40 +113,25 @@
 
     // ── Helpers ───────────────────────────────────────────────────────────
 
-    function resetOverlay() {
-      // Tear down the existing overlay and re-inject so we can demo loading state
+    // Remove the current overlay and reload overlay.js, then call `callback`
+    // once the script has actually finished executing (onload, not a timeout).
+    function resetOverlay(callback) {
       const old = document.getElementById('wtf-overlay');
       const oldStyle = document.getElementById('wtf-styles');
       if (old) old.remove();
       if (oldStyle) oldStyle.remove();
-      // Re-run overlay.js by creating a fresh script tag
+
       const s = document.createElement('script');
-      s.src = 'overlay.js?' + Date.now(); // cache-bust
+      s.src = 'overlay.js?' + Date.now(); // cache-bust so the guard re-runs
+      if (callback) s.onload = callback;
       document.body.appendChild(s);
     }
 
-    function setLoading() { resetOverlay(); }
-
-    function renderHigh() {
-      resetOverlay();
-      // Wait for overlay.js to initialise, then push data
-      setTimeout(() => window.whatTheFrockRender(MOCK_HIGH), 600);
-    }
-
-    function renderMedium() {
-      resetOverlay();
-      setTimeout(() => window.whatTheFrockRender(MOCK_MEDIUM), 600);
-    }
-
-    function renderLow() {
-      resetOverlay();
-      setTimeout(() => window.whatTheFrockRender(MOCK_LOW), 600);
-    }
-
-    function renderError() {
-      resetOverlay();
-      setTimeout(() => window.whatTheFrockError("Claude API timed out after 15s"), 600);
-    }
+    function setLoading()   { resetOverlay(); }
+    function renderHigh()   { resetOverlay(() => window.whatTheFrockRender(MOCK_HIGH)); }
+    function renderMedium() { resetOverlay(() => window.whatTheFrockRender(MOCK_MEDIUM)); }
+    function renderLow()    { resetOverlay(() => window.whatTheFrockRender(MOCK_LOW)); }
+    function renderError()  { resetOverlay(() => window.whatTheFrockError("Claude API timed out after 15s")); }
   </script>
 </body>
 </html>
