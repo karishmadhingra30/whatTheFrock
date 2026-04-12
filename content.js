@@ -3,11 +3,11 @@
 (function () {
   "use strict";
 
-  // --- URL guard: only run on H&M product pages ---
-  if (
-    !window.location.href.includes("hm.com") ||
-    !window.location.href.includes("productpage")
-  ) {
+  // --- URL guard: only run on supported product pages ---
+  const href = window.location.href;
+  const isHM = href.includes("hm.com") && href.includes("productpage");
+  const isLululemon = href.includes("shop.lululemon.com/p/");
+  if (!isHM && !isLululemon) {
     return;
   }
 

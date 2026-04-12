@@ -10,6 +10,7 @@
   "host_permissions": [
     "*://www.hm.com/*",
     "*://www2.hm.com/*",
+    "*://shop.lululemon.com/*",
     "https://api.anthropic.com/*"
   ],
   "background": {
@@ -17,7 +18,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://www.hm.com/*/productpage*", "*://www2.hm.com/*/productpage*"],
+      "matches": ["*://www.hm.com/*/productpage*", "*://www2.hm.com/*/productpage*", "*://shop.lululemon.com/p/*"],
       "js": ["overlay.js", "content.js"],
       "css": ["overlay.css"]
     }
