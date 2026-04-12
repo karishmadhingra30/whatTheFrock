@@ -38,7 +38,7 @@
 
     for (const btn of buttons) {
       const text = btn.textContent.trim();
-      if (!/materials/i.test(text)) continue;
+      if (!/material/i.test(text)) continue;
 
       const expanded = btn.getAttribute("aria-expanded");
       // aria-expanded absent or "false" → accordion is closed
@@ -104,6 +104,23 @@
           }
         }
       }
+    }
+
+    // Strategy 1.5 — Lululemon: find "Materials" subsection label, collect following lines
+    const luluWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    let luluNode;
+    while ((luluNode = luluWalker.nextNode())) {
+      if (luluNode.textContent.trim() !== "Materials") continue;
+      const parent = luluNode.parentElement;
+      const parts = [];
+      let sib = parent?.nextElementSibling;
+      while (sib) {
+        const t = sib.textContent.trim().replace(/\s+/g, " ");
+        if (/\d+%/.test(t)) parts.push(t);
+        else if (parts.length) break;
+        sib = sib.nextElementSibling;
+      }
+      if (parts.length) return parts.join(", ");
     }
 
     // Strategy 2 — regex fallback across the whole document
