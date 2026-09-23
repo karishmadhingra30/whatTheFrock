@@ -17,6 +17,8 @@ The current manifest includes H&M and Lululemon URL patterns. Retailer DOMs chan
 
 ## Try the interface without a retailer page
 
+The [public interactive walkthrough](https://karishmadhingra30.github.io/whatTheFrock/) exposes this mock-data harness directly in the browser. It does not visit retailer sites, analyze a real product, or make health claims.
+
 Open `test.html` in a browser to exercise the loading, low-, medium-, high-risk, and error overlay states with mock data. This is the quickest way to review the product interaction without sending a request to an external service.
 
 ## Load the extension locally
