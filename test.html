@@ -12,7 +12,33 @@
       padding: 40px 32px 160px; /* bottom padding so overlay doesn't cover controls */
     }
     h1 { font-size: 22px; margin-bottom: 6px; }
-    p  { font-size: 14px; color: #666; margin-bottom: 28px; }
+    p  { font-size: 14px; color: #666; margin-bottom: 20px; }
+    .product {
+      display: grid;
+      grid-template-columns: minmax(180px, .7fr) minmax(0, 1fr);
+      gap: 24px;
+      max-width: 760px;
+      margin: 0 0 28px;
+      padding: 20px;
+      border: 1px solid #dddde5;
+      border-radius: 12px;
+      background: #fff;
+    }
+    .tee {
+      min-height: 230px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #e8e4df;
+    }
+    .tee svg { width: 88%; height: auto; }
+    .product h2 { margin: 0 0 8px; font-size: 20px; }
+    .product .brand { margin: 0 0 6px; color: #777; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .product .price { margin: 0 0 16px; color: #222; font-size: 19px; font-weight: 800; }
+    .product .details { margin: 0 0 16px; color: #555; font-size: 13px; line-height: 1.55; }
+    .product a { color: #0a63b5; font-size: 12px; font-weight: 700; }
+    .btn-analyze { background: #1d2b49; }
     .controls {
       display: flex;
       flex-wrap: wrap;
@@ -50,7 +76,20 @@
 </head>
 <body>
   <h1>💃 whatTheFrock — overlay test harness</h1>
-  <p>Simulates the floating overlay as it would appear on a supported product page. Click a state below to test it. The mock scores and copy are prototype UI content, not a validated exposure assessment or medical advice.</p>
+  <p>This is a fixed product-page simulation: choose <strong>Analyze fabric</strong> to run the overlay exactly where it would appear for a shopper. The assessment is prototype UI content—not medical advice or a validated exposure assessment.</p>
+
+  <section class="product" aria-label="Simulated Hanes product page">
+    <div class="tee" aria-hidden="true"><svg viewBox="0 0 260 280" role="img"><path fill="#27252b" d="M78 47 108 30h44l30 17 46 31-26 52-23-14v132H81V116l-23 14-26-52z"/><path fill="#34313a" d="M108 30c4 22 40 22 44 0"/></svg></div>
+    <div>
+      <p class="brand">Hanes Originals · simulated product page</p>
+      <h2>Women’s Cotton T‑Shirt, Raw Edge V‑Neck</h2>
+      <p class="price">$6.98</p>
+      <p class="details"><strong>Color:</strong> Black<br><strong>Fabric:</strong> 100% Cotton<br><strong>Style:</strong> WPC622</p>
+      <button class="btn-analyze" onclick="renderLow()">✨ Analyze fabric</button>
+      <p class="details" style="margin-top:14px">Hardcoded from the current product details for the demo. Availability, price, and sizes can change.</p>
+      <a href="https://www.hanes.com/products/hanes-originals-women-s-raw-edge-v-neck-t-shirt-100-cotton/wpc622" target="_blank" rel="noreferrer">Open the current Hanes product page ↗</a>
+    </div>
+  </section>
 
   <div class="controls">
     <button class="btn-loading" onclick="setLoading()">⏳ Loading state</button>
@@ -101,13 +140,13 @@
     const MOCK_LOW = {
       score: 1.5,
       risk_level: "low",
-      composition: "100% Organic Cotton",
+      composition: "100% Cotton",
       syntheticScore: 0,
       proximityScore: 1,
       chemicalScore: 0,
-      risk_summary: "Organic cotton is one of the safest fabric choices available. It is free from synthetic fibres and grown without pesticide residues, making it a low-risk option even for garments worn close to the skin.",
-      risk_source_url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7068695/",
-      risk_source_label: "NIH Study on Synthetic Textiles and Endocrine Disruption",
+      risk_summary: "This fixed demo result shows how the prototype can turn a visible composition into a plain-language material note. A 100% cotton composition contains no listed synthetic fibre; it is not a health or exposure assessment.",
+      risk_source_url: "https://www.hanes.com/products/hanes-originals-women-s-raw-edge-v-neck-t-shirt-100-cotton/wpc622",
+      risk_source_label: "Demo source: Hanes product details",
       safer_alternatives: ["Linen", "Hemp", "Tencel"]
     };
 
